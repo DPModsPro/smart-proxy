@@ -4,7 +4,7 @@ import { cors } from 'hono/cors';
 
 const app = new Hono();
 
-// Global CORS Middleware
+// CORS Middleware
 app.use(
   '*',
   cors({
@@ -19,7 +19,7 @@ app.all('*', async (c) => {
   const targetUrl = c.req.query('url');
 
   if (!targetUrl) {
-    return c.text('Error: Missing target URL parameter. Use format: ?url=https://example.com', 400);
+    return c.text('Error: Missing target URL parameter (?url=https://example.com)', 400);
   }
 
   try {
@@ -47,13 +47,10 @@ app.all('*', async (c) => {
   }
 });
 
-// Port configuration for Render/Vercel
 const port = Number(process.env.PORT) || 3000;
-console.log(`Server is running on port ${port}`);
+console.log(`CORS Proxy running on port ${port}`);
 
 serve({
   fetch: app.fetch,
   port
 });
-
-export default app;

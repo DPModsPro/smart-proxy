@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "npm install",
-    "start": "npm start"
+    "start": "tsx src/index.ts"
   },
   "dependencies": {
     "@hono/node-server": "^1.8.2",
