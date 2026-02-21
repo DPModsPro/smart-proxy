@@ -1,12 +1,11 @@
 {
   "name": "my-cors-proxy",
   "version": "1.0.0",
-  "main": "src/index.ts",
   "type": "module",
+  "main": "src/index.ts",
   "scripts": {
-    "dev": "tsx watch src/index.ts",
-    "build": "npm install",
-    "start": "tsx src/index.ts"
+    "start": "node --loader tsx src/index.ts",
+    "dev": "tsx watch src/index.ts"
   },
   "dependencies": {
     "@hono/node-server": "^1.8.2",

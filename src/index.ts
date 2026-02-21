@@ -4,7 +4,7 @@ import { cors } from 'hono/cors';
 
 const app = new Hono();
 
-// CORS Middleware
+// Sabhi requests ke liye CORS allow karein
 app.use(
   '*',
   cors({
@@ -19,7 +19,7 @@ app.all('*', async (c) => {
   const targetUrl = c.req.query('url');
 
   if (!targetUrl) {
-    return c.text('Error: Missing target URL parameter (?url=https://example.com)', 400);
+    return c.text('Error: Please provide url parameter. Example: ?url=https://google.com', 400);
   }
 
   try {
@@ -47,10 +47,13 @@ app.all('*', async (c) => {
   }
 });
 
+// Port setting Render ke liye
 const port = Number(process.env.PORT) || 3000;
-console.log(`CORS Proxy running on port ${port}`);
+console.log(`CORS Proxy is live on port ${port}`);
 
 serve({
   fetch: app.fetch,
   port
 });
+
+export default app;
