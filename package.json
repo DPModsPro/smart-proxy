@@ -1,17 +1,20 @@
 {
   "name": "my-cors-proxy",
   "version": "1.0.0",
-  "private": true,
+  "main": "src/index.ts",
+  "type": "module",
   "scripts": {
-    "dev": "wrangler dev src/index.ts",
-    "deploy": "wrangler deploy --minify src/index.ts"
+    "dev": "tsx watch src/index.ts",
+    "build": "npm install",
+    "start": "npm start"
   },
   "dependencies": {
+    "@hono/node-server": "^1.8.2",
     "hono": "^4.0.0"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.0.0",
-    "typescript": "^5.0.0",
-    "wrangler": "^3.0.0"
+    "@types/node": "^20.0.0",
+    "tsx": "^4.7.1",
+    "typescript": "^5.0.0"
   }
 }

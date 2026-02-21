@@ -1,9 +1,10 @@
+import { serve } from '@hono/node-server';
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 
 const app = new Hono();
 
-// Global CORS Middleware - Har request par apply hoga
+// Global CORS Middleware
 app.use(
   '*',
   cors({
@@ -24,22 +25,19 @@ app.all('*', async (c) => {
   try {
     const url = new URL(targetUrl);
     
-    // Original request ka data target URL par forward karna
     const targetRequest = new Request(url, {
       method: c.req.method,
-      headers: c.req.header(), // Client ke bheje gaye headers pass karte hain
+      headers: c.req.header(),
       body: ['GET', 'HEAD'].includes(c.req.method) ? null : await c.req.raw.blob(),
     });
 
     const response = await fetch(targetRequest);
 
-    // Target server se aaye response headers ko copy karna aur CORS set karna
     const newHeaders = new Headers(response.headers);
     newHeaders.set('Access-Control-Allow-Origin', '*');
     newHeaders.set('Access-Control-Allow-Methods', '*');
     newHeaders.set('Access-Control-Allow-Headers', '*');
 
-    // Final response client ko return karna
     return new Response(response.body, {
       status: response.status,
       headers: newHeaders,
@@ -47,6 +45,15 @@ app.all('*', async (c) => {
   } catch (err: any) {
     return c.text(`Proxy Error: ${err.message}`, 500);
   }
+});
+
+// Port configuration for Render/Vercel
+const port = Number(process.env.PORT) || 3000;
+console.log(`Server is running on port ${port}`);
+
+serve({
+  fetch: app.fetch,
+  port
 });
 
 export default app;
