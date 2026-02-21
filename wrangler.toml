@@ -1,0 +1,8 @@
+name = "my-cors-proxy"
+main = "src/index.ts"
+compatibility_date = "2026-02-21"
+compatibility_flags = ["nodejs_compat"]
+
+# Agar aapko future mein environment variables chahiye, toh yahan add kar sakte hain
+# [vars]
+# API_KEY = "your-secret-key"

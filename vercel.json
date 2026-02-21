@@ -1,8 +1,0 @@
-{
-  "version": 2,
-  "rewrites": [
-    { "source": "/proxy/base64/(.*)", "destination": "/api/index" },
-    { "source": "/proxy/(.*)", "destination": "/api/index" },
-    { "source": "/proxy", "destination": "/api/index" }
-  ]
-}
