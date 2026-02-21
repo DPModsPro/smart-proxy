@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ultra Pro Player</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <style>
+        body { background: #0a0a0a; color: #fff; font-family: sans-serif; text-align: center; }
+        video { width: 90%; max-width: 900px; margin-top: 20px; border: 1px solid #444; }
+        input { width: 60%; padding: 12px; background: #222; border: 1px solid #444; color: #fff; border-radius: 4px; }
+        button { padding: 12px 20px; background: #e50914; color: white; border: none; cursor: pointer; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1>Ultra Pro Proxy Test</h1>
+    <input type="text" id="m3u8" placeholder="Paste fogtwist or megacloud m3u8 link">
+    <button onclick="play()">Play Stream</button><br>
+    <video id="video" controls></video>
+
+    <script>
+        function play() {
+            const video = document.getElementById('video');
+            const url = document.getElementById('m3u8').value;
+            const proxy = window.location.origin + '/?url=' + encodeURIComponent(url);
+            
+            if (Hls.isSupported()) {
+                const hls = new Hls();
+                hls.loadSource(proxy);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
+            }
+        }
+    </script>
+</body>
+</html>
